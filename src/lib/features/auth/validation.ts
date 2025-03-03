@@ -19,8 +19,5 @@ export const authFormSchema = (type: FormType) => {
             .min(2, { message: "Full name is required" })
             .max(50, { message: "Full name must be less than 50 characters" })
         : z.string().optional(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
   });
 };

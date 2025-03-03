@@ -17,7 +17,7 @@ import { Button } from "../ui/button";
 import loader from "@/assets/icons/loader.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { createAccount } from "@/lib/actions/users.action";
+import { createAccount, signInUser } from "@/lib/actions/users.action";
 import { OtpModel } from "./otp-model";
 
 type FormType = "sign-in" | "sign-up";
@@ -33,18 +33,22 @@ export function AuthForm({ type }: { type: FormType }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
+      fullName: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      const user = await createAccount({
-        email: values.email,
-        fullName: values.fullName || "",
-      });
+      const user =
+        type === "sign-up"
+          ? await createAccount({
+              email: values.email,
+              fullName: values.fullName || "",
+            })
+          : await signInUser({ email: values.email });
       setAccountId(user.accountId);
+      setIsLoading(false);
     } catch {
       setErrorMessage("failed to create account, please try again later");
     } finally {
