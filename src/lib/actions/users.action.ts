@@ -110,7 +110,7 @@ export async function getCurrentUser() {
 
     return parseStringify(user.documents[0]);
   } catch (error) {
-    handleError(error, "Failed to get current user");
+    console.error(error, "Failed to get current user");
   }
 }
 
