@@ -17,13 +17,13 @@ import { FileUploader } from "./file-uploader";
 import { signOutUser } from "@/lib/actions/users.action";
 
 export function MobileNavigation({
-  ownerId,
+  $id: userId,
   accountId,
   fullName,
   email,
   avatar,
 }: {
-  ownerId: string;
+  $id: string;
   accountId: string;
   fullName: string;
   email: string;
@@ -89,7 +89,7 @@ export function MobileNavigation({
           <Separator className="my-5 bg-light-200/20" />
 
           <div className="flex flex-col justify-between gap-5 pb-5">
-            <FileUploader />
+            <FileUploader ownerId={userId} accountId={accountId} />
             <Button
               type="submit"
               className="flex h-[52px] w-full items-center gap-4 rounded-full bg-brand/10 px-6 text-base font-semibold leading-6 text-brand shadow-none transition-all hover:bg-brand/20"

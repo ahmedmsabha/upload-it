@@ -12,6 +12,8 @@ export async function createSessionClient() {
 
   if (!session || !session.value) throw new Error("No session found");
 
+  client.setSession(session.value);
+
   return {
     get account() {
       return new Account(client);

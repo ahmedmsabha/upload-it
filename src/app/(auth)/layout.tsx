@@ -11,7 +11,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex min-h-screen">
-      <section className="bg-brand hidden w-1/2 items-center justify-center p-10 lg:flex xl:w-2/5">
+      <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
         <div className="flex max-h-[800px] max-w-[430px] flex-col justify-center gap-12">
           <Image
             src={logo}

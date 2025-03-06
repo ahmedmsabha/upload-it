@@ -93,37 +93,37 @@
 @layer utilities {
   /* ===== TYPOGRAPHY */
   .h1 {
-    @apply text-[34px] leading-[42px] font-bold;
+    @apply text-4xl leading-[42px] font-bold;
   }
   .h2 {
-    @apply text-[24px] leading-[36px] font-bold;
+    @apply text-2xl leading-9 font-bold;
   }
   .h3 {
-    @apply text-[20px] leading-[28px] font-semibold;
+    @apply text-xl leading-7 font-semibold;
   }
   .h4 {
-    @apply text-[18px] leading-[20px] font-medium;
+    @apply text-lg leading-5 font-medium;
   }
   .h5 {
-    @apply text-[16px] leading-[24px] font-semibold;
+    @apply text-base leading-6 font-semibold;
   }
   .subtitle-1 {
-    @apply text-[16px] leading-[24px] font-medium;
+    @apply text-base leading-6 font-medium;
   }
   .subtitle-2 {
-    @apply text-[14px] leading-[20px] font-semibold;
+    @apply text-sm leading-5 font-semibold;
   }
   .body-1 {
-    @apply text-[16px] leading-[24px] font-normal;
+    @apply text-base leading-6 font-normal;
   }
   .body-2 {
-    @apply text-[14px] leading-[20px] font-normal;
+    @apply text-sm leading-5 font-normal;
   }
   .button {
-    @apply text-[14px] leading-[20px] font-medium;
+    @apply text-sm leading-5 font-medium;
   }
   .caption {
-    @apply text-[12px] leading-[16px] font-normal;
+    @apply text-xs leading-4 font-normal;
   }
   .overline {
     @apply text-[10px] leading-[14px] font-normal;
@@ -272,7 +272,7 @@
   }
 
   /* ActionsModalContent */
-  .file-details-thumbnail {
+  .file-details-wrapper {
     @apply !mb-1 flex items-center gap-3 rounded-xl border border-light-200/40 bg-light-400/50 p-3 !important;
   }
   .file-details-label {

@@ -15,8 +15,13 @@ const eslintConfig = [
     "next/typescript",
     "standard",
     "plugin:tailwindcss/recommended",
-    "prettier",
+    "prettier"
   ),
+  {
+    rules: {
+      "no-undef": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
