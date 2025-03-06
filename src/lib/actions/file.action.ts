@@ -6,6 +6,7 @@ import { ID, Query, Models } from "node-appwrite";
 import { constructFileUrl, getFileType, parseStringify } from "../utils";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./users.action";
+import { sortTypes } from "@/constants";
 function handleError(error: unknown, message: string) {
   console.error(error, message);
   throw error;
@@ -81,12 +82,16 @@ function createQueries(
     queries.push(Query.contains("name", searchText));
   }
 
-  if (sort) {
-    const [sortBy, orderBy] = sort.split("-");
+  // if (sort) {
+  //   const [sortBy, orderBy] = sort.split("-");
 
-    queries.push(
-      orderBy === "asc" ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy)
-    );
+  //   queries.push(
+  //     orderBy === "asc" ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy)
+  //   );
+  // }
+
+  if (sort) {
+    queries.push(sort);
   }
 
   if (limit) {
@@ -97,7 +102,7 @@ function createQueries(
 export async function getFiles({
   types = [],
   searchText = "",
-  sort = "$createdAt-desc",
+  sort = sortTypes[0].value, // Use default from constants
   limit,
 }: GetFilesProps) {
   const { databases } = await createAdminClient();
@@ -109,7 +114,32 @@ export async function getFiles({
       throw new Error("User not found");
     }
 
-    const queries = createQueries(currentUser, types, searchText, sort, limit);
+    const sortClause = (() => {
+      const [field, direction] = sort.includes("-")
+        ? sort.split("-")
+        : [sort, "desc"];
+
+      const fieldMap: Record<string, string> = {
+        name: "name",
+        size: "size",
+        $createdAt: "$createdAt",
+      };
+
+      const dbField = fieldMap[field] || "$createdAt";
+
+      // Use correct Appwrite query methods
+      return direction === "asc"
+        ? Query.orderAsc(dbField)
+        : Query.orderDesc(dbField);
+    })();
+
+    const queries = createQueries(
+      currentUser,
+      types,
+      searchText,
+      sortClause,
+      limit
+    );
 
     const files = await databases.listDocuments(
       appwriteConfig.databaseId,

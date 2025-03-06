@@ -7,6 +7,7 @@ import { appwriteConfig } from "../appwrite/config";
 import { cookies } from "next/headers";
 import { avatarPlaceholderUrl } from "@/constants";
 import { redirect } from "next/navigation";
+
 async function getUserByEmail(email: string) {
   const { databases } = createAdminClient();
 
@@ -130,7 +131,9 @@ export async function signOutUser() {
 export async function signInUser({ email }: { email: string }) {
   try {
     const existingUser = await getUserByEmail(email);
+
     if (existingUser) {
+      await sendEmailOTP({ email });
       return parseStringify({ accountId: existingUser.accountId });
     }
 
