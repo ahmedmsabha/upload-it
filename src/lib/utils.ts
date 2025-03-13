@@ -241,3 +241,10 @@ export const getFileTypesParams = (type: string) => {
       return ["document"];
   }
 };
+
+export const fileTypeConfig = {
+  documents: ["document"],
+  images: ["image"],
+  media: ["video", "audio"],
+  others: ["other"],
+} as Record<string, FileType[]>;
